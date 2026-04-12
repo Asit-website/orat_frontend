@@ -1,0 +1,101 @@
+/* @font-face {
+    font-family: GreycliffCF-Bold;
+    src: url(/psl_static/fonts/greycliff-cf-bold/webfonts/greycliff-cf-bold.eot);
+    src: url(/psl_static/fonts/greycliff-cf-bold/webfonts/greycliff-cf-bold.eot?#iefix) format("embedded-opentype"), url(/psl_static/fonts/greycliff-cf-bold/webfonts/greycliff-cf-bold.woff2) format("woff2"), url(/psl_static/fonts/greycliff-cf-bold/webfonts/greycliff-cf-bold.woff) format("woff"), url(/psl_static/fonts/greycliff-cf-bold/webfonts/greycliff-cf-bold.ttf) format("truetype"), url(/psl_static/fonts/greycliff-cf-bold/webfonts/greycliff-cf-bold.svg#youworkforthem) format("svg");
+    font-weight: 400;
+    font-style: normal
+}
+
+@font-face {
+    font-family: GreycliffCF-DemiBold;
+    src: url(/psl_static/fonts/greycliff-cf-demi-bold/webfonts/greycliff-cf-demi-bold.eot);
+    src: url(/psl_static/fonts/greycliff-cf-demi-bold/webfonts/greycliff-cf-demi-bold.eot?#iefix) format("embedded-opentype"), url(/psl_static/fonts/greycliff-cf-demi-bold/webfonts/greycliff-cf-demi-bold.woff2) format("woff2"), url(/psl_static/fonts/greycliff-cf-demi-bold/webfonts/greycliff-cf-demi-bold.woff) format("woff"), url(/psl_static/fonts/greycliff-cf-demi-bold/webfonts/greycliff-cf-demi-bold.ttf) format("truetype"), url(/psl_static/fonts/greycliff-cf-demi-bold/webfonts/greycliff-cf-demi-bold.svg#youworkforthem) format("svg");
+    font-weight: 400;
+    font-style: normal
+}
+
+@font-face {
+    font-family: GreycliffCF-ExtraBold;
+    src: url(/psl_static/fonts/greycliff-cf-extra-bold/webfonts/greycliff-cf-extra-bold.eot);
+    src: url(/psl_static/fonts/greycliff-cf-extra-bold/webfonts/greycliff-cf-extra-bold.eot?#iefix) format("embedded-opentype"), url(/psl_static/fonts/greycliff-cf-extra-bold/webfonts/greycliff-cf-extra-bold.woff2) format("woff2"), url(/psl_static/fonts/greycliff-cf-extra-bold/webfonts/greycliff-cf-extra-bold.woff) format("woff"), url(/psl_static/fonts/greycliff-cf-extra-bold/webfonts/greycliff-cf-extra-bold.ttf) format("truetype"), url(/psl_static/fonts/greycliff-cf-extra-bold/webfonts/greycliff-cf-extra-bold.svg#youworkforthem) format("svg");
+    font-weight: 400;
+    font-style: normal
+}
+
+@font-face {
+    font-family: GreycliffCF-Medium;
+    src: url(/psl_static/fonts/greycliff-cf-medium/webfonts/greycliff-cf-medium.eot);
+    src: url(/psl_static/fonts/greycliff-cf-medium/webfonts/greycliff-cf-medium.eot?#iefix) format("embedded-opentype"), url(/psl_static/fonts/greycliff-cf-medium/webfonts/greycliff-cf-medium.woff2) format("woff2"), url(/psl_static/fonts/greycliff-cf-medium/webfonts/greycliff-cf-medium.woff) format("woff"), url(/psl_static/fonts/greycliff-cf-medium/webfonts/greycliff-cf-medium.ttf) format("truetype"), url(/psl_static/fonts/greycliff-cf-medium/webfonts/greycliff-cf-medium.svg#youworkforthem) format("svg");
+    font-weight: 400;
+    font-style: normal
+} */
+
+
+/* App.css */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* .modal {
+    display: block!important;
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    width: 40%!important;
+    height: 50%!important;
+    margin: 12% 30%;
+  } */
+
+/* Add more styling as needed */
+
+.other-page-top {
+    /*margin-top: 11%;*/
+    padding-top: 11%;
+    background-color: #fafafa;
+}
+/* 
+@font-face {
+    font-family: GreycliffCF-Bold;
+    src: url('../font/greycliff-cf-bold.eot');
+    src: url('../font/greycliff-cf-bold.eot?#iefix') format("embedded-opentype"), url('../font/greycliff-cf-bold.woff2') format("woff2"), url('../font/greycliff-cf-bold.woff') format("woff"), url('../font/greycliff-cf-bold.ttf') format("truetype"), url('../font/greycliff-cf-bold.svg#youworkforthem') format("svg");
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: GreycliffCF-DemiBold;
+    src: url('../font/greycliff-cf-demi-bold.eot');
+    src: url('../font/greycliff-cf-demi-bold.eot?#iefix') format("embedded-opentype"), url('../font/greycliff-cf-demi-bold.woff2') format("woff2"), url('../font/greycliff-cf-demi-bold.woff') format("woff"), url('../font/greycliff-cf-demi-bold.ttf') format("truetype"), url('../font/greycliff-cf-demi-bold.svg#youworkforthem') format("svg");
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: GreycliffCF-ExtraBold;
+    src: url('../font/greycliff-cf-extra-bold.eot');
+    src: url('../font/greycliff-cf-extra-bold.eot?#iefix') format("embedded-opentype"), url('../font/greycliff-cf-extra-bold.woff2') format("woff2"), url('../font/greycliff-cf-extra-bold.woff') format("woff"), url('../font/greycliff-cf-extra-bold.ttf') format("truetype"), url('../font/greycliff-cf-extra-bold.svg#youworkforthem') format("svg");
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: GreycliffCF-Medium;
+    src: url('../font/greycliff-cf-medium.eot');
+    src: url('../font/greycliff-cf-medium.eot?#iefix') format("embedded-opentype"), url('../font/greycliff-cf-medium.woff2') format("woff2"), url('../font/greycliff-cf-medium.woff') format("woff"), url('../font/greycliff-cf-medium.ttf') format("truetype"), url('../font/greycliff-cf-medium.svg#youworkforthem') format("svg");
+    font-weight: 400;
+    font-style: normal;
+}
+ */
+
+
+ 

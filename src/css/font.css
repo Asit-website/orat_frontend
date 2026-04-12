@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'YourCustomFont';
+    src: url('../font/Fontspring-DEMO-greycliffcf-medium.otf') format('otf'),
+         url('../font/blinkmacsystemfont-ultralightitalic.ttf') format('ttf'),
+         url('../font/Segoe UI.ttf') format('ttf'),
+         url('../font/HelveticaBlkIt.ttf') format('ttf'),
+         url('../font/wind.ttf') format('ttf'),
+         url('../font/DroidSans.ttf') format('ttf');
+    font-weight: 400;
+    font-style: normal;
+  }
+  

@@ -1,0 +1,48 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+
+.mega-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  display: block !important;
+  width: 100vw;
+  background: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  visibility: hidden !important;
+  opacity: 0 !important;
+  transition: 0.4s all !important;
+  -webkit-transition: 0.4s all !important;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.MenuItem:hover .mega-dropdown,
+.mega-dropdown.visible {
+  /* visibility: visible !important; */
+  opacity: 1 !important;
+  transition: 0.4s all !important;
+  -webkit-transition: 0.4s all !important;
+}
+.mega-dropdown.visible {
+  visibility: visible !important;
+  opacity: 1 !important;
+  transition: 0.4s all !important;
+  -webkit-transition: 0.4s all !important;
+}
+.whatmore-events-carousel-landscape.premium-carousel-landscape{
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+}
