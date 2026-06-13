@@ -6,7 +6,7 @@ import { BsHeart, BsHeartFill } from "react-icons/bs";
 import Button from 'react-bootstrap/Button';
 import { Modal, Tabs, Tab } from 'react-bootstrap';
 import Filter from '../components/Filter';
-import { products_list, getProductPageBanner, getEditList, productColor, productSize, recentproductList } from '../services/Product-service';
+import { products_list, getProductPageBanner, getEditList, productColor, productSize, recentproductList, productDetails } from '../services/Product-service';
 import { menuList, categoryList } from '../services/General-service';
 import { addWishList, removeWishList, getWishList } from '../services/User-service';
 import { useSelector, useDispatch } from 'react-redux';
@@ -49,9 +49,14 @@ function Category() {
   const [pendingColorIds, setPendingColorIds] = useState([]);
   const [pendingCategoryIds, setPendingCategoryIds] = useState([]);
   const [pendingReadyToShip, setPendingReadyToShip] = useState(false);
+  const [pendingShippingTimes, setPendingShippingTimes] = useState([]);
 
   const navigate = useNavigate();
   const productListContainerRef = useRef(null);
+
+  const displayedProducts = useMemo(() => {
+    return productsArr;
+  }, [productsArr]);
 
   const sizePriority = {
     XXS: 0,
@@ -210,6 +215,7 @@ function Category() {
     setPendingColorIds(queryParameters.get('color_ids')?.split('-').filter(Boolean) || []);
     setPendingCategoryIds(queryParameters.get('category_ids')?.split('-').filter(Boolean) || []);
     setPendingReadyToShip(queryParameters.get('ready_to_ship') === '1');
+    setPendingShippingTimes(queryParameters.get('shipping_times')?.split('-').filter(Boolean) || []);
     setPendingSort(queryParameters.get('sort_by') || '');
     setMinPrice(queryParameters.get('min_price') || '300');
     setMaxPrice(queryParameters.get('max_price') || '100000');
@@ -912,7 +918,7 @@ function Category() {
                       <div className="CategoryHeaderTopRow layout align-center justify-space-between">
                         <div className="layout align-center">
                           <h4 className="CategoryTitle ellipsis demi-bold">{catNamelabel}</h4>
-                          <p className="CategoryProductCount h7 font-normal">({productsArr.length} products)</p>
+                          <p className="CategoryProductCount h7 font-normal">({displayedProducts.length} products)</p>
                         </div>
                       </div>
 
@@ -1106,109 +1112,13 @@ function Category() {
                                           </div>
                                         </div>
                                       </div>
-                                      {/* <div className={`tab-pane fade ${activeTab === 'v-pills-SHIPPING-TIME' ? 'show active' : ''}`} id="v-pills-SHIPPING-TIME" role="tabpanel" aria-labelledby="v-pills-SHIPPING-TIME-tab">
-                                        <div className="CheckboxList">
-                                          <h5 className="CheckboxListTitle demi-bold">SHIPPING TIME</h5>
-                                          <div className="CheckboxListOptions layout row align-start wrap">
-                                            <div className="flex xs12 CheckboxColorOptions">
-                                              <div className="PslCheckbox flex">
-                                                <label>
-                                                  <input type="checkbox" name="5" className="PslCheckboxInput" />
-                                                  <span className="PslCheckboxCheckmark"></span>
-                                                  <span className="PslCheckboxText m-l-5 m-r-5 ellipsis p2">48 Hours</span>
-                                                  <span className='PslCheckboxCount p2'>
-                                                    (31951)
-                                                  </span>
-                                                </label>
-                                              </div>
-                                            </div>
-                                            <div className="flex xs12 CheckboxColorOptions">
-                                              <div className="PslCheckbox flex">
-                                                <label>
-                                                  <input type="checkbox" name="5" className="PslCheckboxInput" />
-                                                  <span className="PslCheckboxCheckmark"></span>
-                                                  <span className="PslCheckboxText m-l-5 m-r-5 ellipsis p2">7 Days</span>
-                                                  <span className='PslCheckboxCount p2'>
-                                                    (21951)
-                                                  </span>
-                                                </label>
-                                              </div>
-                                            </div>
-                                            <div className="flex xs12 CheckboxColorOptions">
-                                              <div className="PslCheckbox flex">
-                                                <label>
-                                                  <input type="checkbox" name="5" className="PslCheckboxInput" />
-                                                  <span className="PslCheckboxCheckmark"></span>
-                                                  <span className="PslCheckboxText m-l-5 m-r-5 ellipsis p2">10 Days</span>
-                                                  <span className='PslCheckboxCount p2'>
-                                                    (11951)
-                                                  </span>
-                                                </label>
-                                              </div>
-                                            </div>
-                                            <div className="flex xs12 CheckboxColorOptions">
-                                              <div className="PslCheckbox flex">
-                                                <label>
-                                                  <input type="checkbox" name="5" className="PslCheckboxInput" />
-                                                  <span className="PslCheckboxCheckmark"></span>
-                                                  <span className="PslCheckboxText m-l-5 m-r-5 ellipsis p2">1-2 Weeks</span>
-                                                  <span className='PslCheckboxCount p2'>
-                                                    (41951)
-                                                  </span>
-                                                </label>
-                                              </div>
-                                            </div>
-                                            <div className="flex xs12 CheckboxColorOptions">
-                                              <div className="PslCheckbox flex">
-                                                <label>
-                                                  <input type="checkbox" name="5" className="PslCheckboxInput" />
-                                                  <span className="PslCheckboxCheckmark"></span>
-                                                  <span className="PslCheckboxText m-l-5 m-r-5 ellipsis p2">2-3 Weeks</span>
-                                                  <span className='PslCheckboxCount p2'>
-                                                    (31951)
-                                                  </span>
-                                                </label>
-                                              </div>
-                                            </div>
-                                            <div className="flex xs12 CheckboxColorOptions">
-                                              <div className="PslCheckbox flex">
-                                                <label>
-                                                  <input type="checkbox" name="5" className="PslCheckboxInput" />
-                                                  <span className="PslCheckboxCheckmark"></span>
-                                                  <span className="PslCheckboxText m-l-5 m-r-5 ellipsis p2">3-4 Weeks</span>
-                                                  <span className='PslCheckboxCount p2'>
-                                                    (31951)
-                                                  </span>
-                                                </label>
-                                              </div>
-                                            </div>
-                                            <div className="flex xs12 CheckboxColorOptions">
-                                              <div className="PslCheckbox flex">
-                                                <label>
-                                                  <input type="checkbox" name="5" className="PslCheckboxInput" />
-                                                  <span className="PslCheckboxCheckmark"></span>
-                                                  <span className="PslCheckboxText m-l-5 m-r-5 ellipsis p2">4-5 Weeks</span>
-                                                  <span className='PslCheckboxCount p2'>
-                                                    (31951)
-                                                  </span>
-                                                </label>
-                                              </div>
-                                            </div>
-                                            <div className="flex xs12 CheckboxColorOptions">
-                                              <div className="PslCheckbox flex">
-                                                <label>
-                                                  <input type="checkbox" name="5" className="PslCheckboxInput" />
-                                                  <span className="PslCheckboxCheckmark"></span>
-                                                  <span className="PslCheckboxText m-l-5 m-r-5 ellipsis p2">Above 5 Weeks</span>
-                                                  <span className='PslCheckboxCount p2'>
-                                                    (61951)
-                                                  </span>
-                                                </label>
-                                              </div>
-                                            </div>
-                                          </div>
+                                      <div className={`tab-pane fade ${activeTab === 'v-pills-SHIPPING-TIME' ? 'show active' : ''}`} id="v-pills-SHIPPING-TIME" role="tabpanel" aria-labelledby="v-pills-SHIPPING-TIME-tab">
+                                        <div className="CheckboxList" style={{ padding: '15px' }}>
+                                          <p className="p2 orat-dark-grey-color" style={{ wordBreak: 'break-word', whiteSpace: 'normal', lineHeight: '1.4' }}>
+                                            The estimated shipping time for this product is 14 days from the date of order.
+                                          </p>
                                         </div>
-                                      </div> */}
+                                      </div>
                                       <div className={`tab-pane fade ${activeTab === 'v-pills-PRICE' ? 'show active' : ''}`} id="v-pills-PRICE" role="tabpanel" aria-labelledby="v-pills-PRICE-tab">
                                         <div className="PriceFilterContainer CheckboxList">
                                           <div className="layout justify-space-between align-center CheckboxListTitle">
@@ -1418,6 +1328,7 @@ function Category() {
                                 onClick={() => {
                                   setMinPrice('');
                                   setMaxPrice('');
+                                  setPendingShippingTimes([]);
                                   setSearchParams({});
                                   handleClose();
                                 }}
@@ -1445,6 +1356,8 @@ function Category() {
                                   else newParams.delete('category_ids');
                                   if (pendingReadyToShip) newParams.set('ready_to_ship', '1');
                                   else newParams.delete('ready_to_ship');
+                                  if (pendingShippingTimes.length > 0) newParams.set('shipping_times', pendingShippingTimes.join('-'));
+                                  else newParams.delete('shipping_times');
                                   if (pendingSort) newParams.set('sort_by', pendingSort);
                                   else newParams.delete('sort_by');
 
@@ -1540,9 +1453,9 @@ function Category() {
 
                     </div>
                     <div className={`layout wrap align-start all_product ${queryParameters.get('campaign') ? 'campaign-product-list' : ''}`}>
-                      {productsArr && productsArr.length > 0 ? (
+                      {displayedProducts && displayedProducts.length > 0 ? (
                         <>
-                          {productsArr && productsArr.length > 0 && productsArr.map((product, index) => (
+                          {displayedProducts && displayedProducts.length > 0 && displayedProducts.map((product, index) => (
                             <div key={index} className='category-product pr-3'>
                               <div className="category-div">
                                 <Link to={`/products/productdetails/${product.id}`} className='ProductCard'>

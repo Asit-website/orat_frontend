@@ -557,7 +557,7 @@ function Singleproducttext({productDetails}) {
                 </div>
                 <div className="sectionSeparator">
                     <p className="p2 demi-bold">SHIPPING INFORMATION</p>
-                    <p className="p4 orat-dark-grey-color">The estimated shipping date for this product is by 30th of April. Please note that this is the shipping date and not the delivery date.</p>
+                    <p className="p4 orat-dark-grey-color">The estimated shipping time for this product is 14 days from the date of order.</p>
                 </div>
                 <div className="sectionSeparator">
                     <p className="p2 demi-bold text-uppercase">Disclaimer</p>

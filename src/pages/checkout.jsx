@@ -567,7 +567,7 @@
 
 // export default Checkout;
 
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { FaHeart, FaRegHeart, FaWhatsapp } from "react-icons/fa";
@@ -601,6 +601,7 @@ import { getWishListd } from "../Redux/features/wishlist/WishListSlice";
 import LoginModal from "../components/loginmodal";
 import Alerts from "../components/Alerts";
 import { formatPrice } from "../utils/formatPrice";
+import { productDetails } from "../services/Product-service";
 
 function Checkout() {
   // State Management
@@ -614,6 +615,8 @@ function Checkout() {
   const [wishlistIcon, setWishlistIcon] = useState("");
   const [selectedBtnId, setSelectedBtnId] = useState([]);
   const [cartArr, setCartDetails] = useState([]);
+  const [cartItemsStock, setCartItemsStock] = useState({});
+  const productDetailsCacheRef = useRef(new Map());
   const [selectedSizeId, setSelectedSizeId] = useState(-1);
   const [couponCode, setCouponCode] = useState("");
   const [showCoLoader, setShowCoLoader] = useState(false);
@@ -643,6 +646,39 @@ function Checkout() {
     const payable = cartTotal - discount - slabDiscount + tax;
     return payable > 0 ? payable : 0;
   }, [totalPrice, totalDiscount, discountOnTotal, totalTaxAmount]);
+
+  const hasOutOfStockItems = useMemo(() => {
+    return (cartArr || []).some((item) => {
+      const stock = cartItemsStock[item.id];
+      return stock !== undefined && stock <= 0;
+    });
+  }, [cartArr, cartItemsStock]);
+
+  useEffect(() => {
+    if (cartArr && cartArr.length > 0) {
+      const cache = productDetailsCacheRef.current;
+      Promise.all(
+        cartArr.map((item) => {
+          if (cache.has(item.id)) {
+            return Promise.resolve({ id: item.id, quantity: cache.get(item.id) });
+          }
+          return productDetails(item.id)
+            .then((detail) => {
+              const qty = Number(detail?.product?.quantity ?? 0);
+              cache.set(item.id, qty);
+              return { id: item.id, quantity: qty };
+            })
+            .catch(() => ({ id: item.id, quantity: 1 }));
+        })
+      ).then((results) => {
+        const stockMap = {};
+        results.forEach((r) => {
+          stockMap[r.id] = r.quantity;
+        });
+        setCartItemsStock(stockMap);
+      });
+    }
+  }, [cartArr]);
 
   const isRealDiscounted = (item) => {
     const amount = Number(item?.discount_amount) || 0;
@@ -1294,6 +1330,11 @@ function Checkout() {
                           <div className="Code m-t-10 bold">
                             CODE: {cartItem.sku}
                           </div>
+                          {cartItemsStock[cartItem.id] !== undefined && cartItemsStock[cartItem.id] <= 0 && (
+                            <div className="OutOfStockLabel bold m-t-10" style={{ color: '#e83647', fontSize: '14px' }}>
+                              Out of stock
+                            </div>
+                          )}
                           {cartItem.envpriceid && (!cartItem.gift_id || cartItem.gift_id === '') && (
                             <div className="dd-wrapper plainDropdown cartItemSizes">
                               <div
@@ -1453,6 +1494,11 @@ function Checkout() {
                           <div className="Code m-t-10 bold">
                             Code: {cartItem.sku}
                           </div>
+                          {cartItemsStock[cartItem.id] !== undefined && cartItemsStock[cartItem.id] <= 0 && (
+                            <div className="OutOfStockLabel bold m-t-10" style={{ color: '#e83647', fontSize: '14px' }}>
+                              Out of stock
+                            </div>
+                          )}
                           {cartItem.envpriceid && (!cartItem.gift_id || cartItem.gift_id === '') && (
                             <div className="dd-wrapper plainDropdown cartItemSizes">
                               {/* <div
@@ -1801,7 +1847,15 @@ function Checkout() {
                     </span>
                   </div>
                   <div className="Buttons">
-                    {userInfo ? (
+                    {hasOutOfStockItems ? (
+                      <button
+                        className="btn-orat-primary bold"
+                        disabled
+                        style={{ opacity: 0.5, cursor: "not-allowed" }}
+                      >
+                        PROCEED TO CHECKOUT
+                      </button>
+                    ) : userInfo ? (
                       <Link to="/address">
                         <button className="btn-orat-primary bold">
                           PROCEED TO CHECKOUT

@@ -1898,7 +1898,7 @@
 //     </>
 //   );
 // }
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { BsHeart, BsHeartFill } from "react-icons/bs";
 import { MdInfoOutline } from "react-icons/md";
@@ -1924,6 +1924,7 @@ export default function SingleProductTextDetails({ productDetails, productVars, 
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const userInfo = useSelector((state) => state.user.userInfo);
+    const prevProductIdRef = useRef(null);
     const handleShareProduct = () => {
         if (typeof window === "undefined") return;
         const shareUrl = window.location.href;
@@ -2478,15 +2479,50 @@ export default function SingleProductTextDetails({ productDetails, productVars, 
         sessionStorage.setItem(pageLoadKey, currentPageLoad);
         
         if (productVars) setVariants(productVars);
-        if (productDetails) {
-            setactiveprice(productDetails?.price);
-            setactivesaleprice(productDetails?.saleprice);
-            setactivediscountamount(productDetails?.discount_amount || 0);
-            setactivediscounttype(productDetails?.discount_type || '');
+
+        const isNewProduct = prevProductIdRef.current !== productDetails?.id;
+        const shouldInitSize = isNewProduct || (!activevarient && productVars && productVars.length > 0);
+        
+        if (productDetails?.id) {
+            prevProductIdRef.current = productDetails.id;
         }
+
+        if (shouldInitSize && productDetails) {
+            if (productVars && productVars.length > 0) {
+                const sizeOrder = ['3xs', 'xxs', 'xs', 's', 'm', 'l', 'xl', '2xl', 'xxl', '3xl', 'xxxl', '4xl', '5xl', '6xl'];
+                const sortedVars = [...productVars].sort((a, b) => {
+                    const sizeA = (a.size || '').toLowerCase().trim();
+                    const sizeB = (b.size || '').toLowerCase().trim();
+                    const indexA = sizeOrder.indexOf(sizeA);
+                    const indexB = sizeOrder.indexOf(sizeB);
+                    if (indexA === -1 && indexB === -1) return 0;
+                    if (indexA === -1) return 1;
+                    if (indexB === -1) return -1;
+                    return indexA - indexB;
+                });
+                const lowestVariant = sortedVars[0];
+                if (lowestVariant) {
+                    setactivevarient(lowestVariant.varid);
+                    setactiveprice(lowestVariant.price);
+                    setactivesaleprice(lowestVariant.saleprice);
+                    setactivediscountamount(lowestVariant.discount_amount || 0);
+                    setactivediscounttype(lowestVariant.discount_type || '');
+                    setFitInfo(lowestVariant.product_fit_info);
+                    setSelectedSize(lowestVariant.size);
+                    setshipping(true);
+                }
+            } else {
+                setactivevarient('');
+                setactiveprice(productDetails?.price);
+                setactivesaleprice(productDetails?.saleprice);
+                setactivediscountamount(productDetails?.discount_amount || 0);
+                setactivediscounttype(productDetails?.discount_type || '');
+            }
+        }
+        
         setLoading(false);
         if (userInfo) getWishListData();
-    }, [productDetails, productVars, userInfo]);
+    }, [productDetails, productVars, userInfo, activevarient]);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -3201,7 +3237,7 @@ export default function SingleProductTextDetails({ productDetails, productVars, 
                                                     </div>
                                                 </div>
                                                 <div>
-                                                    <p className="p2 orat-dark-grey-color">The estimated shipping date for this product is by 20th of October. Please note that this is the shipping date and not the delivery date.</p>
+                                                    <p className="p2 orat-dark-grey-color">The estimated shipping time for this product is 14 days from the date of order.</p>
                                                 </div>
                                             </div>
                                         </div>

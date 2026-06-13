@@ -86,7 +86,7 @@ function Handpicked({showhpdeals}) {
                                                         {/* <div className="image-gradient"></div> */}
                                                         <div className="ImageTextDetail CategoryImageTextDetail">
                                 
-                                                            <label className="h4 ImageTextLabelTop m-t-5 demi-bold"> UP TO 55% OFF </label>
+                                                            {/* <label className="h4 ImageTextLabelTop m-t-5 demi-bold"> UP TO 55% OFF </label> */}
                                                         <label className="h6 ellipsis ImageTextLabelBottom block font-normal">{data.designer_name}</label>
                                                         </div>
                                                     </Link>

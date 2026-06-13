@@ -19879,6 +19879,7 @@ button:focus:not(:focus-visible) {
 
 .FooterFourSection p {
     margin-bottom: 10px;
+    font-size: 13px !important;
 }
 
 .SearchImg {

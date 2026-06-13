@@ -320,22 +320,14 @@ const Filter = ({ min = 0, max = 100000, onChange }) => {
                     {renderCheckboxList('Color', filteredColor, 'color', undefined, 'color_ids')}
 
                     {/* Shipping Time */}
-                    {/* <div className="CheckboxList">
+                    <div className="CheckboxList">
                         <h5 className="CheckboxListTitle demi-bold">SHIPPING TIME</h5>
-                        <div className="CheckboxListOptions layout row align-start wrap">
-                            {shippingTimes.map((time, index) => (
-                                <div key={index} className="flex xs12 CheckboxColorOptions">
-                                    <div className="PslCheckbox flex">
-                                        <label>
-                                            <input type="checkbox" name="shipping" className="PslCheckboxInput" />
-                                            <span className="PslCheckboxCheckmark" />
-                                            <span className="PslCheckboxText m-l-5 m-r-5 ellipsis p2">{time}</span>
-                                        </label>
-                                    </div>
-                                </div>
-                            ))}
+                        <div className="CheckboxListOptions" style={{ padding: '0 10px' }}>
+                            <p className="p2 orat-dark-grey-color" style={{ wordBreak: 'break-word', whiteSpace: 'normal', lineHeight: '1.4' }}>
+                                The estimated shipping time for this product is 14 days from the date of order.
+                            </p>
                         </div>
-                    </div> */}
+                    </div>
 
                     {/* Price Filter */}
                     <div className="PriceFilterContainer CheckboxList my-4">

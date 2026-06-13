@@ -564,7 +564,7 @@ function Mobilefooter() {
                                     </div>
                                 </div>
 
-                                <div className="mt-4 text-center footer_sdf">
+                                {/* <div className="mt-4 text-center footer_sdf">
                                     <p className="bold m-b-10">Orat Shop App on Mobile</p>
                                     <div className="layout align-center justify-content-center" style={{ gap: '10px' }}>
                                         <img
@@ -578,7 +578,7 @@ function Mobilefooter() {
                                             style={{ width: '135px', height: '40px' }}
                                         />
                                     </div>
-                                </div>
+                                </div> */}
 
                                 {/* <div className="layout row m-t-25 align-center justify-content-center">
                                         
